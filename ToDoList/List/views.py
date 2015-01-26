@@ -6,5 +6,5 @@ from List.models import Task
 # Create your views here.
 def index(request):
 	todo_list = Task.objects.all()
-	context = {'ToDo_List':todo_list}
-	return render(request, 'List/index.html', context)
+	output = ', '.join([p.task_text for p in todo_list])
+	return HttpResponse(output)
