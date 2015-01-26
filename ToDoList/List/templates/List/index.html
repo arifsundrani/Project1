@@ -1,9 +1,18 @@
-{% if todo_list %}
-    <ul>
-    {% for task in todo_list %}
-       <li><a href="{% url 'index' task.id %}">{{ task.task_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No tasks in the list</p>
-{% endif %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <h1>To-Do List Login Page</h1>
+</head>
+
+<body>
+
+<form action="demo_form.asp" method="get">
+Username: <input type="text" name="username"><br>
+Password: <input type="text" name="password"><br>
+<input type="submit" value="Submit" formmethod="post" formaction="demo_post.asp">
+
+</form>
+
+</body>
+</html>
