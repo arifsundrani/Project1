@@ -7,11 +7,11 @@
 
 <body>
 
-<form action="demo_form.asp" method="get">
+<form action="list/" method="get">
 Username: <input type="text" name="username"><br>
 Password: <input type="text" name="password"><br>
-<input type="submit" value="Submit" formmethod="post" formaction="demo_post.asp">
-
+<input type="submit" value="Submit" formmethod="post" formaction="list/">
+{% csrf_token %}
 </form>
 
 </body>
