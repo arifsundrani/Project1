@@ -3,7 +3,7 @@
     <ul>
     <form action="" method="GET">
     {% csrf_token %}
-    {% for t in todo_list%}
+    {% for t in todo_list %}
        <li>{{ t.task_text }}
        <input type="hidden" name="listid" value="{{t.id}}" />
        <input type="submit" value="complete" name="complete" /></li>

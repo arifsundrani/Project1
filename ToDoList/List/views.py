@@ -2,19 +2,21 @@ from django.shortcuts import get_object_or_404, render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.http import HttpResponseRedirect
+from django.views.generic import DeleteView
 
 
 from List.models import Task
 from List.complete import complete, add
 # Create your views here.
-def list(request):
+def list(request, **kwargs):
 	#if(request.POST):
 	#	if "Add" in request.POST:
 	if(request.GET.get('Add')):
   		titem = Task(task_text=request.GET.get('Task'))
   		titem.save()
   	elif(request.GET.get('complete')):
-  		litem = Task.objects.get(id = request.GET.get('listid'))
+  		pk = request.GET.get('listid')
+  		litem = Task.objects.get(id = pk)
   		litem.completed = True
   		litem.save()
 	todo_list = Task.objects.filter(completed=False)		
@@ -47,7 +49,3 @@ def complete(request,todo_id):
     #return HttpResponseRedirect(reverse("admin:todo_list"))
     #return render_to_response('List/list.html')
 	
-def request_page(request):
-  if(request.POST.get('btn')):
-  	    Todo.objects.get(id=todo_id).completed = True    
-  return render('List/list.html')
