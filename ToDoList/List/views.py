@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import RequestContext, loader
+from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
-
+from django.contrib import auth
+from django.core.context_processors import csrf
 
 from List.models import Task
 # Create your views here.
@@ -20,3 +22,31 @@ def index(request):
 	return render(request, 'List/index.html', context)
 
 
+def login(request):
+	c = {}
+	c.update(csrf(request))
+	return render_to_response('login.html', c)
+
+def auth_view(request):
+	username = request.POST.get('username', '')
+	password = request.POST.get('password','')
+	user = auth.authenticate(username=username, password=password)
+	
+	if user is not None:
+		auth.login(request, user)
+		return HttpResponseRedirect('/accounts/loggedin')
+	else:
+		return HttpResponseRedirect('/accounts/invalid')
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
