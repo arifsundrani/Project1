@@ -1,16 +1,19 @@
+{% load List_extras %}
 {% if todo_list %}
     <ul>
-    <form action="{'/list/'}" method="post">
+    <form action="" method="GET">
     {% csrf_token %}
     {% for t in todo_list%}
-       <li><!--a href="/list/"-->{{ t.task_text }} <input type="submit" value="Complete" name="Complete"/><!--/a--></li>
+       <li>{{ t.task_text }}
+       <input type="hidden" name="listid" value="{{t.id}}" />
+       <input type="submit" value="complete" name="complete" /></li>
     {% endfor %}
 	</form>
     </ul>
 {% else %}
     <p>No tasks in the list</p>
 {% endif %}
-<form action="{'/list/'}" method="post">
+<form action="" method="GET">
 {% csrf_token %}
     <input type="text" name="Task">
 	<input type="submit" value="Add" name="Add"/>
