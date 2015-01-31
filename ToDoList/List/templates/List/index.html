@@ -7,7 +7,7 @@
 
 <body>
 
-<form action="List/" method="get">
+<form action="{% url 'list' %}" method="get">
 Username: <input type="text" name="username"><br>
 Password: <input type="text" name="password"><br>
 <input type="submit" value="Submit" formmethod="Post" formaction="list/">

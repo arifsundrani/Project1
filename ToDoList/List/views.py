@@ -8,18 +8,16 @@ from django.views.generic import DeleteView
 from List.models import Task
 from List.complete import complete, add
 # Create your views here.
-def list(request, **kwargs):
-	#if(request.POST):
-	#	if "Add" in request.POST:
-	if(request.GET.get('Add')):
-  		titem = Task(task_text=request.GET.get('Task'))
+def list(request):
+	todo_list = Task.objects.all()
+	if(request.POST.get('Add')):
+  		titem = Task(task_text=request.POST.get('Task'))
   		titem.save()
-  	elif(request.GET.get('complete')):
-  		pk = request.GET.get('listid')
+  	elif(request.POST.get('complete') and todo_list):
+  		pk = request.POST.get('listid')
   		litem = Task.objects.get(id = pk)
-  		litem.completed = True
-  		litem.save()
-	todo_list = Task.objects.filter(completed=False)		
+  		litem.delete()
+  	todo_list = Task.objects.all()
 	template = loader.get_template('List/list.html')
 	context = RequestContext(request, {
 		'todo_list': todo_list,
@@ -33,19 +31,23 @@ def index(request):
 	return render(request, 'List/index.html', context)
 	
 def item(request, task_id):
+	if(request.GET.get('complete')):
+		titem = get_object_or_404(Task, pk=task_id)
+		titem.delete()
+		return render(request, 'List/list.html', {'task': task})
 	task = get_object_or_404(Task, pk=task_id)
 	return render(request, 'List/item.html', {'task': task})
 	
-def complete(request,todo_id):
-	items = Task.objects.all()
+def complete(request, t_id):
 	if request.method =="POST":
 		try:
-			litem = Task.objects.get(id = request.POST['todo_id'])
-			litem.completed = not litem.completed
+			litem = Task.objects.get(pk=t_id)
+			litem.completed = False
 			litem.save()
 		except Task.DoesNotExist:
 			pass
-	return render_to_response("list.html", {'items':items})
+	todo_list = Task.objects.filter(completed=False)		
+	return render(request,"List/list.html", {'todo_list': todo_list})
     #return HttpResponseRedirect(reverse("admin:todo_list"))
     #return render_to_response('List/list.html')
 	
