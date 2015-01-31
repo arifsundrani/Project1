@@ -13,16 +13,15 @@ def list(request):
 	if(request.POST.get('Add')):
   		titem = Task(task_text=request.POST.get('Task'))
   		titem.save()
-  	elif(request.POST.get('complete') and todo_list):
+  	elif(request.POST.get('complete') and todo_list and request.POST.get('listid')>0):
   		pk = request.POST.get('listid')
-  		litem = Task.objects.get(id = pk)
+  		litem = get_object_or_404(Task, id = pk)
   		litem.delete()
   	todo_list = Task.objects.all()
 	template = loader.get_template('List/list.html')
 	context = RequestContext(request, {
 		'todo_list': todo_list,
 	})
- 
 	return HttpResponse(template.render(context))	
 	
 def index(request):
@@ -30,24 +29,13 @@ def index(request):
 	context = {'ToDo_List':todo_list}
 	return render(request, 'List/index.html', context)
 	
-def item(request, task_id):
-	if(request.GET.get('complete')):
-		titem = get_object_or_404(Task, pk=task_id)
-		titem.delete()
-		return render(request, 'List/list.html', {'task': task})
-	task = get_object_or_404(Task, pk=task_id)
-	return render(request, 'List/item.html', {'task': task})
+#def item(request, task_id):
+#	if(request.GET.get('complete')):
+#		titem = get_object_or_404(Task, pk=task_id)
+#		titem.delete()
+#		return render(request, 'List/list.html', {'task': task})
+#	task = get_object_or_404(Task, pk=task_id)
+#	return render(request, 'List/item.html', {'task': task})
 	
-def complete(request, t_id):
-	if request.method =="POST":
-		try:
-			litem = Task.objects.get(pk=t_id)
-			litem.completed = False
-			litem.save()
-		except Task.DoesNotExist:
-			pass
-	todo_list = Task.objects.filter(completed=False)		
-	return render(request,"List/list.html", {'todo_list': todo_list})
-    #return HttpResponseRedirect(reverse("admin:todo_list"))
-    #return render_to_response('List/list.html')
+
 	
