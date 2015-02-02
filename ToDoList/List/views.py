@@ -4,7 +4,7 @@ from django.template import RequestContext, loader
 
 
 from django.core.context_processors import csrf
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 from django.views.generic import DeleteView
 from List.forms import UserForm
@@ -74,7 +74,7 @@ def user_login(request):
 	
 		if user:
 			login(request,user)
-			return HttpResponseRedirect('/List/')
+			return HttpResponseRedirect('/List/list.html')
 	
 		else:
 			print "Invalid login details: {0}, {1}".format(username, password)
@@ -83,7 +83,11 @@ def user_login(request):
 	else
 		return render(request, 'List/login.html', {})
 	
-
+	
+def user_logout(request):
+	logout(request)
+	
+	return HttpResponseRedirect('/List/')
 
 		
 def register(request):
