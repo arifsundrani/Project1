@@ -1,0 +1,32 @@
+dtzou3@dutch:~/public_html$ telnet dutch.mathcs.emory.edu 80
+Trying 170.140.150.171...
+Connected to dutch.mathcs.emory.edu.
+Escape character is '^]'.
+GET /~dtzou3/ HTTP/1.0
+
+HTTP/1.1 200 OK
+Date: Sat, 24 Jan 2015 18:56:56 GMT
+Server: Apache/2.2.22 (Ubuntu)
+Last-Modified: Sat, 24 Jan 2015 18:42:36 GMT
+ETag: "26000c-72-50d6a44dbea1e"
+Accept-Ranges: bytes
+Content-Length: 114
+Vary: Accept-Encoding
+Connection: close
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<h1> Hello! Welcome to my page </h1>
+
+<p> This is a test. </p>
+
+</body>
+
+
+</html>
+Connection closed by foreign host.
+

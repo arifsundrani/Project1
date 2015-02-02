@@ -5,7 +5,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'ToDoList.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    url(r'^List/', include('List.urls')),
+    url(r'^', include('List.urls')),
     url(r'^admin/', include(admin.site.urls)),
     
     

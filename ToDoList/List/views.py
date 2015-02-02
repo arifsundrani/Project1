@@ -1,36 +1,41 @@
 from django.shortcuts import get_object_or_404, render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
+<<<<<<< HEAD
 from django.contrib import auth
 from django.core.context_processors import csrf
 
+=======
+from django.http import HttpResponseRedirect
+from django.views.generic import DeleteView
+from List.forms import UserForm
+>>>>>>> FETCH_HEAD
 
 
 from List.models import Task
 from List.complete import complete, add
 # Create your views here.
 def list(request):
-	#if(request.POST):
-	#	if "Add" in request.POST:
-	if(request.GET.get('Add')):
-  		titem = Task(task_text=request.GET.get('Task'))
+	todo_list = Task.objects.all()
+	if(request.POST.get('Add')):
+  		titem = Task(task_text=request.POST.get('Task'))
   		titem.save()
-  	elif(request.GET.get('complete')):
-  		litem = Task.objects.get(id = request.GET.get('listid'))
-  		litem.completed = True
-  		litem.save()
-	todo_list = Task.objects.filter(completed=False)		
+  	elif(request.POST.get('complete') and todo_list and request.POST.get('listid')>0):
+  		pk = request.POST.get('listid')
+  		litem = get_object_or_404(Task, id = pk)
+  		litem.delete()
+  	todo_list = Task.objects.all()
 	template = loader.get_template('List/list.html')
 	context = RequestContext(request, {
 		'todo_list': todo_list,
 	})
- 
 	return HttpResponse(template.render(context))	
 	
 def index(request):
 	todo_list = Task.objects.all()
 	context = {'ToDo_List':todo_list}
 	return render(request, 'List/index.html', context)
+<<<<<<< HEAD
 	
 def item(request, task_id):
 	task = get_object_or_404(Task, pk=task_id)
@@ -87,3 +92,26 @@ def logout(request):
 	return render_to_response('logout.html')
 
 
+=======
+		
+def register(request):
+	registered = False
+	if request.method == 'POST':
+		user_form = UserForm(data=request.POST)
+		if user_form.is_valid():
+			user = user_form.save()
+			user.set_password(user.password)
+			user.save
+			registered = True
+		else:
+			print user_form.errors
+	else:
+		user_form = UserForm()
+	template = loader.get_template('List/register.html')
+	context = RequestContext(request, {
+		'user_form': user_form, 
+		'registered': registered,
+		})
+	return HttpResponse(template.render(context))		
+	#return render(request, 'List/register.html', {'user_form': user_form, 'registered': registered})
+>>>>>>> FETCH_HEAD
