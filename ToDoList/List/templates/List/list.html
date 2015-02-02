@@ -18,18 +18,14 @@
 {% else %}
     <p>No tasks in the list</p>
 {% endif %}
-<<<<<<< Updated upstream
 
-=======
-<form action='' method="POST">
-{% csrf_token %}
-    <input type="text" name="Task">
-	<input type="submit" value="Add" name="Add"/>
-</form>
+
+
 
 <body>
-	<form action="/List/login.html" method="post">
-		<input type="submit" value="go to login page" name="Logout"/>
+	<form action="/" method="post">
+		{% csrf_token %}
+		<input type="submit" value="Logout" name="Logout"/>
 	</form>
 </body>
->>>>>>> Stashed changes
+
