@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--<<<<<<< Updated upstream
 <html lang="en">
 <head>
  	<title> Welcome to the To-Do List Login Page!</title>
@@ -15,4 +16,23 @@
 </form>
 
 </body>
+</html>
+=======-->
+<html>
+	<head>
+		<title>ToDoList</title>
+	</head>
+	
+	<body>
+		<h1>Login to see your list</h1>
+		<form id="login" method="POST" action="/list/">
+			{% csrf_token %}
+			Username: <input type="text" name="username" value="" size="50" />
+            <br />
+            Password: <input type="password" name="password" value="" size="50" />
+            <br />
+            
+            <input type="submit" value="submit" />
+        </form>
+    </body>
 </html>

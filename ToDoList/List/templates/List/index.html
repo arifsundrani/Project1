@@ -2,15 +2,19 @@
 <html>
 {% load List_extras %}
 <head>
-  <h1>To-Do List</h1>
+	{% if user.is_authenticated %}
+	<h1>Hello {{ user.username }}!</h1>
+	{% else %}
+	<h1>To-Do List Login Page</h1>
+	{% endif %}
 </head>
 
 <body>
 
 
 
-<a href="/List/register/">Register Here</a>
-<a href="/List/login/">Login</a>
+<a href="register/">Register Here</a>
+<a href="login/">Click here to Login</a>
 
 </body>
 </html>

@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 
 from django.views.generic import DeleteView
 from List.forms import UserForm
+from django.contrib.auth import authenticate, login
 
 
 
@@ -80,7 +81,7 @@ def user_login(request):
 			print "Invalid login details: {0}, {1}".format(username, password)
 			return HttpResponse("Invalid login details supplied.")
 	
-	else
+	else:
 		return render(request, 'List/login.html', {})
 	
 	
@@ -110,3 +111,4 @@ def register(request):
 		})
 	return HttpResponse(template.render(context))		
 	#return render(request, 'List/register.html', {'user_form': user_form, 'registered': registered})
+
