@@ -36,10 +36,7 @@ def index(request):
 	context = {'ToDo_List':todo_list}
 	return render(request, 'List/index.html', context)
 
-	
-def item(request, task_id):
-	task = get_object_or_404(Task, pk=task_id)
-	return render(request, 'List/item.html', {'task': task})
+
 	
 def complete(request,todo_id):
 	items = Task.objects.all()
