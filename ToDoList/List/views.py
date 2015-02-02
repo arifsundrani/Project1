@@ -30,12 +30,13 @@ def list(request):
 		'todo_list': todo_list,
 	})
 	return HttpResponse(template.render(context))	
-	
+
+"""
 def index(request):
 	todo_list = Task.objects.all()
 	context = {'ToDo_List':todo_list}
 	return render(request, 'List/index.html', context)
-
+"""
 
 	
 def complete(request,todo_id):
