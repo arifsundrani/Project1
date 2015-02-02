@@ -3,17 +3,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 
 
-from django.core.context_processors import csrf
+#from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
-
-from django.views.generic import DeleteView
+from django.contrib.auth.models import User
+#from django.views.generic import DeleteView
 from List.forms import UserForm
-from django.contrib.auth import authenticate, login
-
-
-
 from List.models import Task
-from List.complete import complete, add
+#from List.complete import complete, add
 # Create your views here.
 def list(request):
 	todo_list = Task.objects.all()
@@ -36,8 +32,6 @@ def index(request):
 	context = {'ToDo_List':todo_list}
 	return render(request, 'List/index.html', context)
 
-
-	
 def complete(request,todo_id):
 	items = Task.objects.all()
 	if request.method =="POST":
@@ -48,44 +42,30 @@ def complete(request,todo_id):
 		except Task.DoesNotExist:
 			pass
 	return render_to_response("list.html", {'items':items})
-    #return HttpResponseRedirect(reverse("admin:todo_list"))
-    #return render_to_response('List/list.html')
 	
-def request_page(request):
-  if(request.POST.get('btn')):
-  	    Todo.objects.get(id=todo_id).completed = True    
-  return render('List/list.html')
-
-
-
-
-
 # for user authentication
 
 def user_login(request):
-	
-	if request.method == 'POST':
+	if (request.method == 'POST'):
 		username = request.POST['username']
 		password = request.POST['password']
-
 		user = authenticate(username=username, password=password)
-	
 		if user:
-			login(request,user)
-			return HttpResponseRedirect('/List/list.html')
-	
+			if user.is_active:
+				login(request,user)
+				return HttpResponseRedirect('/list/')
+			else:
+				return HttpResponse("Your account has been disabled.")
 		else:
-			print "Invalid login details: {0}, {1}".format(username, password)
+			#print "Invalid login details: {0}, {1}".format(username, password)
 			return HttpResponse("Invalid login details supplied.")
-	
 	else:
 		return render(request, 'List/login.html', {})
 	
 	
 def user_logout(request):
 	logout(request)
-	
-	return HttpResponseRedirect('/List/')
+	return HttpResponseRedirect('/')
 
 		
 def register(request):
@@ -95,17 +75,16 @@ def register(request):
 		if user_form.is_valid():
 			user = user_form.save()
 			user.set_password(user.password)
-			user.save
+			user.save()
 			registered = True
 		else:
 			print user_form.errors
 	else:
 		user_form = UserForm()
-	template = loader.get_template('List/register.html')
-	context = RequestContext(request, {
-		'user_form': user_form, 
-		'registered': registered,
-		})
-	return HttpResponse(template.render(context))		
-	#return render(request, 'List/register.html', {'user_form': user_form, 'registered': registered})
+	#template = loader.get_template('List/register.html')
+	#context = RequestContext(request, {
+	#	'user_form': user_form, 
+	#	'registered': registered,
+	#	})
+	return render(request, 'List/register.html', {'user_form': user_form,'registered': registered,})#HttpResponse(template.render(context))		
 
