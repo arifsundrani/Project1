@@ -18,9 +18,9 @@ def list(request):
 		titem.save()
 	elif(request.POST.get('complete') and todo_list and request.POST.get('listid')>0):
 		pk = request.POST.get('listid')
-  		litem = get_object_or_404(Task, id = pk)
-  		litem.delete()
-  	todo_list = Task.objects.all()
+		litem = get_object_or_404(Task, id = pk)
+		litem.delete()
+	todo_list = Task.objects.all()
 	template = loader.get_template('List/list.html')
 	context = RequestContext(request, {
 		'todo_list': todo_list,
