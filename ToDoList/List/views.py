@@ -81,10 +81,5 @@ def register(request):
 			print user_form.errors
 	else:
 		user_form = UserForm()
-	#template = loader.get_template('List/register.html')
-	#context = RequestContext(request, {
-	#	'user_form': user_form, 
-	#	'registered': registered,
-	#	})
 	return render(request, 'List/register.html', {'user_form': user_form,'registered': registered,})#HttpResponse(template.render(context))		
 
