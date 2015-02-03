@@ -16,7 +16,7 @@ def list(request):
 	if(request.POST.get('Add')):
 		titem = Task(task_text=request.POST.get('Task'))
 		titem.save()
-	elif(request.POST.get('complete') and todo_list and request.POST.get('listid')>0):
+	elif(request.POST.get('complete') and todo_list and request.POST.get('listid')):
 		pk = request.POST.get('listid')
 		litem = get_object_or_404(Task, id = pk)
 		litem.delete()
