@@ -78,7 +78,7 @@ def register(request):
 			user.save()
 			registered = True
 		else:
-			print user_form.errors
+			print (user_form.errors)
 	else:
 		user_form = UserForm()
 	return render(request, 'List/register.html', {'user_form': user_form,'registered': registered,})#HttpResponse(template.render(context))		
