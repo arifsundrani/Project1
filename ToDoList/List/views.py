@@ -14,10 +14,10 @@ from List.models import Task
 def list(request):
 	todo_list = Task.objects.all()
 	if(request.POST.get('Add')):
-  		titem = Task(task_text=request.POST.get('Task'))
-  		titem.save()
-  	elif(request.POST.get('complete') and todo_list and request.POST.get('listid')>0):
-  		pk = request.POST.get('listid')
+		titem = Task(task_text=request.POST.get('Task'))
+		titem.save()
+	elif(request.POST.get('complete') and todo_list and request.POST.get('listid')>0):
+		pk = request.POST.get('listid')
   		litem = get_object_or_404(Task, id = pk)
   		litem.delete()
   	todo_list = Task.objects.all()
