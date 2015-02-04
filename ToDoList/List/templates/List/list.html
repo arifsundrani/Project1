@@ -1,4 +1,6 @@
 {% load List_extras %}
+{% if user.is_authenticated %}
+	<h1>Hello {{ user.username }}!</h1>
 <form action='' method="POST">
 {% csrf_token %}
     <input type="text" name="Task">
@@ -30,3 +32,7 @@
 	</form>
 </body>
 
+	{% else %}
+	<h1>To-Do List Login Page</h1>
+	You don't seem to be logged in. <br /><a href="/">Click here to return to the homepage and login.</a>
+	{% endif %}
