@@ -8,7 +8,7 @@
 </form>
 {% if todo_list %}
     <ul>
-    {% for t in todo_list %}
+    {% for t in todo_list %}  
     <form action='' method="POST">
     {% csrf_token %}
        <li>{{ t.task_text }}
