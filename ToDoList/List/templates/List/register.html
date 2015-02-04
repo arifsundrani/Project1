@@ -3,7 +3,9 @@
 	<head>
 		<title>ToDoList</title>
 	</head>
-{% if user.is_authenticated %}
+
+	<section>
+	{% if user.is_authenticated %}
 	You seem to be logged in already!
 	<a href="/">Click here to go to the homepage!</a>
 	<form action="/logout/" method="POST">
@@ -11,8 +13,7 @@
 		{% csrf_token %}
 		<input type="submit" value="logout" name="logout"/>
 	</form>
-{% else %}	
-	<body>
+	{% else %}	
 		<h1>Register with ToDoList</h1>
 		
 		{% if registered %}
@@ -28,6 +29,25 @@
 			<input type="submit" name ="submit" value="register" />
 			</form>
 		{% endif %}
-	</body>
-{% endif %}
+	{% endif %}
+	</section>
+
+
+	<style>
+	h1 { text-align: center;}
+		body {
+        background: yellow }
+    section {
+        background: #663300;
+        color: yellow;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -40%;
+        transform: translate(-50%, -50%) }
+     
+
+	</style>
 </html>

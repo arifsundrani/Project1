@@ -1,20 +1,5 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-
-
-=======
->>>>>>> FETCH_HEAD
 <html>
-
-{% if user.is_authenticated %}
-	You seem to be logged in already!
-	<a href="/">Click here to go to the homepage!</a>
-	<form action="/logout/" method="POST">
-	<form id="logout_form" action="/" method="post">
-		{% csrf_token %}
-		<input type="submit" value="logout" name="logout"/>
-	</form>
-	{% else %}
 
 	<style>
 	h1 { text-align: center;}
@@ -35,6 +20,15 @@
 	</style>
 
 	<section>
+	{% if user.is_authenticated %}
+	You seem to be logged in already!
+	<a href="/">Click here to go to the homepage!</a>
+	<form action="/logout/" method="POST">
+	<form id="logout_form" action="/" method="post">
+		{% csrf_token %}
+		<input type="submit" value="logout" name="logout"/>
+	</form>
+	{% else %}
 		<h1>
 			LOGIN TO THE LIST
 			</h1>
@@ -51,9 +45,10 @@
             
             
         </form>
+        {% endif %}
     </section>
     
-    {% endif %}
+    
 </html>
 
 
