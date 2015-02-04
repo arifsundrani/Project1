@@ -11,7 +11,11 @@
 </form>
 {% if todo_list %}
     <ul>
+<<<<<<< HEAD
     {% for t in todo_list %} 
+=======
+    {% for t in todo_list %}  
+>>>>>>> FETCH_HEAD
     <form action='' method="POST">
     {% csrf_token %}
       <li>{{ t.task_text }}

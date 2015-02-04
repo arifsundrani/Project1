@@ -6,10 +6,8 @@ from django.template import RequestContext, loader
 #from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-#from django.views.generic import DeleteView
 from List.forms import UserForm
 from List.models import Task
-#from List.complete import complete, add
 # Create your views here.
 def list(request):
 	todo_list = Task.objects.all()
@@ -31,17 +29,6 @@ def index(request):
 	todo_list = Task.objects.all()
 	context = {'ToDo_List':todo_list}
 	return render(request, 'List/index.html', context)
-
-def complete(request,todo_id):
-	items = Task.objects.all()
-	if request.method =="POST":
-		try:
-			litem = Task.objects.get(id = request.POST['todo_id'])
-			litem.completed = not litem.completed
-			litem.save()
-		except Task.DoesNotExist:
-			pass
-	return render_to_response("list.html", {'items':items})
 	
 # for user authentication
 
@@ -57,7 +44,6 @@ def user_login(request):
 			else:
 				return HttpResponse("Your account has been disabled.")
 		else:
-			#print "Invalid login details: {0}, {1}".format(username, password)
 			return HttpResponse("Invalid login details supplied.")
 	else:
 		return render(request, 'List/login.html', {})
