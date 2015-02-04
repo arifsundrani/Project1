@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 {% load List_extras %}
+
+<section>
 <head>
 	{% if user.is_authenticated %}
 	<h1>Hello {{ user.username }}!</h1>
@@ -9,15 +11,15 @@
 	{% endif %}
 </head>
 
-<body>
+
 	{% if user.is_authenticated %}
 	You seem to be logged in already!
 	<a href="list/">Click here to go to the list!</a>
 	<form action="/logout/" method="POST">
-	<form id="logout_form" action="/" method="post">
+	<form id="logout_form" action="/" method="post"><br />
 		{% csrf_token %}
 		<input type="submit" value="logout" name="logout"/>
-	</form>
+	</form> 
 	{% else %}
 
 
@@ -25,5 +27,26 @@
 <a href="register/">Register Here</a>
 <a href="login/">Click here to Login</a>
 	{% endif %}
-</body>
+</section>
+
+
+<style>
+	a{
+		color: yellow
+	}
+	
+	body { text-align: center;}
+		body {
+        background: yellow }
+    section {
+        background: #663300;
+        color: yellow;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -40%;
+        transform: translate(-50%, -50%) }
+</style>
 </html>

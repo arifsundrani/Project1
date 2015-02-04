@@ -1,19 +1,22 @@
+<!Doctype html>
+<html>
+<body>
 {% load List_extras %}
 {% if user.is_authenticated %}
-	<h1>Hello {{ user.username }}!</h1>
+	<h1><span class="highlight"> Hello {{ user.username }}!</span></h1> 
 <form action='' method="POST">
 {% csrf_token %}
-    <input type="text" name="Task">
+    <input class="textbox" type="text" name="Task" id="TextField"/>
 	<input type="submit" value="Add" name="Add"/>
 </form>
 {% if todo_list %}
     <ul>
-    {% for t in todo_list %}
+    {% for t in todo_list %} 
     <form action='' method="POST">
     {% csrf_token %}
-       <li>{{ t.task_text }}
-       <input type="hidden" name="listid" value="{{t.id}}" />
-       <input type="submit" value="complete" name="complete" /></li>
+      <li>{{ t.task_text }}
+       <input type="hidden" name="listid" value="{{t.id}}"/>     
+       <input type="submit" value="complete" name="complete"/></li><br />
 	</form>
 	{% endfor %}
     </ul>
@@ -22,17 +25,49 @@
 {% endif %}
 
 
+ 
+<style> 
+#TextField:focus {
+    color: yellow ;
+}
+  .textbox { 
+    background-color : #663300; 
+    border: 1px solid #848484; 
+    height:25px; 
+    width: 275px; 
+    outline:0; 
+  } 
+  
+ body {
+    background-color: yellow ;
+}
+
+h1 {
+	color: yellow;
+}
+
+span.highlight {
+	background-color:#663300;
+	color: yellow;
+}
 
 
-<body>
+ </style> 
+
+
+
 	<form action="/logout/" method="POST">
 	<form id="logout_form" action="/" method="post">
 		{% csrf_token %}
 		<input type="submit" value="logout" name="logout"/>
 	</form>
-</body>
+
 
 	{% else %}
 	<h1>To-Do List Login Page</h1>
 	You don't seem to be logged in. <br /><a href="/">Click here to return to the homepage and login.</a>
 	{% endif %}
+	
+</body>
+
+</html>
