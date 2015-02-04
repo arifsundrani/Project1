@@ -44,10 +44,12 @@ def user_login(request):
 			else:
 				return HttpResponse("Your account has been disabled.")
 		else:
-			return HttpResponse("Invalid login details supplied.")
+			return HttpResponseRedirect('/login_fail/')
 	else:
 		return render(request, 'List/login.html', {})
-	
+
+def login_fail(request):
+	return render(request, 'List/login_fail.html', {})
 	
 def user_logout(request):
 	logout(request)
